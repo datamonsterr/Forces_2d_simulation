@@ -12,7 +12,7 @@ public class MainScreen extends JFrame {
 
         JPanel surface = new Surface();
         // CubeObject cube = new CubeObject(100, 50);
-        CylinderObject cube = new CylinderObject(100, 50);
+        CubeObject cube = new CubeObject(100, 50);
 
         JPanel simulationPanel = new JPanel();
         JPanel inputPanel = new UserInput();

@@ -16,7 +16,7 @@ public class Surface extends JPanel implements ActionListener {
     private final int DELAY = 1000 / 60; // 60 fps
     private final Color BACKGROUND_COLOR = new Color(246, 211, 143, 255);
     private final Color SURFACE_COLOR = new Color(226, 135, 67);
-    private int velocity = 10; // m/s = velocity * (1/10 pixels/ (DELAY ms))
+    private int velocity = -10; // m/s = velocity * (1/10 pixels/ (DELAY ms))
 
     private int lastIndex = NUM_RECTANGLES - 1;
     private int firstIndex = 0;
@@ -35,6 +35,10 @@ public class Surface extends JPanel implements ActionListener {
         // Each DELAY milliseconds, the actionPerformed method will be called
         Timer timer = new Timer(DELAY, this);
         timer.start();
+    }
+
+    public void setVelocity(int velocity) {
+        this.velocity = velocity;
     }
 
     @Override
@@ -61,7 +65,7 @@ public class Surface extends JPanel implements ActionListener {
                 }
             }
         } else {
-            for (int i = FRAME_END; i >= FRAME_START; i--) {
+            for (int i = FRAME_END - 1; i >= FRAME_START; i--) {
                 int j = i - FRAME_START;
                 xPositions[j] -= velocity * ((RECT_WIDTH / RECT_WIDTH_IN_METRE) / DELAY);
                 // If a rectangle moves out of the left side, reposition it to the right side

@@ -1,11 +1,10 @@
 package com.application.components;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 
 public class CubeObject extends MyObject {
-    public CubeObject(int size, int mass, Color color) {
+    public CubeObject(int size, int mass) {
         super(size, mass);
     }
 
