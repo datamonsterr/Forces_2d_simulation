@@ -4,18 +4,34 @@ import javax.swing.JPanel;
 
 import java.awt.*;
 
-public class MyObject extends JPanel {
-    protected final Color OBJ_COLOR = new Color(135, 62, 35);
-    protected final Color ARROW_COLOR = new Color(238, 238, 228);
-    protected final Color BACKGROUND_COLOR = new Color(171, 219, 227);
+public abstract class MyObject extends JPanel {
+    public static final Color OBJ_COLOR = new Color(135, 62, 35);
+    public static final Color ARROW_COLOR = new Color(238, 238, 228);
+    public static final Color BACKGROUND_COLOR = new Color(171, 219, 227);
 
     protected int size;
     protected int mass;
     protected Point center;
     protected Point upperLeft;
+    private String direction;
 
     private final int WIDTH = 1200;
     private final int HEIGHT = 300;
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        paintShape(g);
+        if (direction == "right") {
+            arrowLine(g, center, new Point(center.x + size, center.y));
+        } else if (direction == "left") {
+            arrowLine(g, center, new Point(center.x - size, center.y));
+        }
+    }
+
+    public void setDirection(String direction) {
+        this.direction = direction;
+    }
 
     public MyObject(int size, int mass) {
         this.size = size;
@@ -40,4 +56,6 @@ public class MyObject extends JPanel {
                     new int[] { to.y, to.y - d, to.y + d, to.y }, 4);
         }
     }
+
+    abstract protected void paintShape(Graphics g);
 }

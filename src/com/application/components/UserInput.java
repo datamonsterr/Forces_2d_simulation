@@ -5,26 +5,34 @@ import javax.swing.*;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import java.awt.event.*;
 import java.util.HashMap;
 import java.util.Map;
 
 public class UserInput extends JPanel {
     private Map<String, JTextField> userInputMap = new HashMap<>();
-    private JButton button;
+    private JRadioButton cubeRadio, cylinderRadio;
 
     public UserInput() {
         setLayout(new GridLayout(getComponentCount() / 2, 2, 10, 10));
         setBorder(BorderFactory.createTitledBorder("User Input"));
 
-        button = new JButton("Submit");
-        button.addActionListener(onClick);
+        JPanel shapePanel = new JPanel();
+        shapePanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        ButtonGroup shapeGroup = new ButtonGroup();
+        cubeRadio = new JRadioButton("Cube");
+        cylinderRadio = new JRadioButton("Cylinder");
+        shapePanel.add(new JLabel("Shape:"));
+        shapeGroup.add(cubeRadio);
+        shapeGroup.add(cylinderRadio);
+        shapePanel.add(cubeRadio);
+        shapePanel.add(cylinderRadio);
+        add(shapePanel);
 
         createInputText("Mass");
+        createInputText("Size");
         createInputText("First Actor");
         createInputText("Second Actor");
-        createInputText("Size");
-        add(button);
+        createInputText("Friction Coefficient");
 
         setSize(1200, 300);
         setMaximumSize(new Dimension(1200, 200));
@@ -40,12 +48,11 @@ public class UserInput extends JPanel {
         add(panel);
     }
 
-    protected ActionListener onClick = new ActionListener() {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            for (var entry : userInputMap.entrySet()) {
-                System.out.println(entry.getKey() + ": " + entry.getValue().getText());
-            }
-        }
-    };
+    public String getShape() {
+        return cubeRadio.isSelected() ? "Cube" : "Cylinder";
+    }
+
+    public Map<String, JTextField> getUserInputMap() {
+        return userInputMap;
+    }
 }

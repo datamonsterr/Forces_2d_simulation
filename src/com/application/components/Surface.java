@@ -16,7 +16,8 @@ public class Surface extends JPanel implements ActionListener {
     private final int DELAY = 1000 / 60; // 60 fps
     private final Color BACKGROUND_COLOR = new Color(246, 211, 143, 255);
     private final Color SURFACE_COLOR = new Color(226, 135, 67);
-    private int velocity = -10; // m/s = velocity * (1/10 pixels/ (DELAY ms))
+    private float velocity = 0; // m/s = velocity * (1/10 pixels/ (DELAY ms))
+    private float acceleration = 0; // m/s^2 = acceleration * (1/10 pixels/ (DELAY ms)^2)
 
     private int lastIndex = NUM_RECTANGLES - 1;
     private int firstIndex = 0;
@@ -37,8 +38,9 @@ public class Surface extends JPanel implements ActionListener {
         timer.start();
     }
 
-    public void setVelocity(int velocity) {
-        this.velocity = velocity;
+    public void setAcceralation(float acceleration) {
+        this.acceleration = acceleration;
+        this.velocity = 0;
     }
 
     @Override
@@ -52,7 +54,7 @@ public class Surface extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (velocity == 0) {
+        if (acceleration == 0.0f) {
             return;
         } else if (velocity > 0) {
             for (int i = FRAME_START; i < FRAME_END; i++) {
@@ -75,6 +77,7 @@ public class Surface extends JPanel implements ActionListener {
                 }
             }
         }
+        velocity += acceleration / 60;
         repaint();
     }
 
