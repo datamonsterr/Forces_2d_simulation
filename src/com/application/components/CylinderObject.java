@@ -7,8 +7,7 @@ public class CylinderObject extends MyObject {
         super(size, mass);
     }
 
-    protected void paintShape(Graphics g) {
-        g.setColor(OBJ_COLOR);
+    protected void drawShape(Graphics g) {
         g.fillOval(upperLeft.x, upperLeft.y, size, size);
     }
 }

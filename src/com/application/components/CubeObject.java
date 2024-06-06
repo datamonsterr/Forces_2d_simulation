@@ -7,8 +7,7 @@ public class CubeObject extends MyObject {
         super(size, mass);
     }
 
-    protected void paintShape(Graphics g) {
-        g.setColor(OBJ_COLOR);
+    protected void drawShape(Graphics g) {
         g.fillRect(upperLeft.x, upperLeft.y, size, size);
     }
 }

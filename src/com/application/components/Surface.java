@@ -16,13 +16,19 @@ public class Surface extends JPanel implements ActionListener {
     private final int DELAY = 1000 / 60; // 60 fps
     private final Color BACKGROUND_COLOR = new Color(246, 211, 143, 255);
     private final Color SURFACE_COLOR = new Color(226, 135, 67);
+    private final float MAX_VELOCITY = 100000;
     private float velocity = 0; // m/s = velocity * (1/10 pixels/ (DELAY ms))
+    private float prev_velocity;
+    private float prev_acc;
     private float acceleration = 0; // m/s^2 = acceleration * (1/10 pixels/ (DELAY ms)^2)
+    private boolean isPaused = false;
 
     private int lastIndex = NUM_RECTANGLES - 1;
     private int firstIndex = 0;
 
     private int[] xPositions;
+
+    private Timer timer;
 
     public Surface() {
         xPositions = new int[NUM_RECTANGLES];
@@ -34,7 +40,7 @@ public class Surface extends JPanel implements ActionListener {
         setBackground(BACKGROUND_COLOR);
 
         // Each DELAY milliseconds, the actionPerformed method will be called
-        Timer timer = new Timer(DELAY, this);
+        timer = new Timer(DELAY, this);
         timer.start();
     }
 
@@ -77,8 +83,27 @@ public class Surface extends JPanel implements ActionListener {
                 }
             }
         }
-        velocity += acceleration / 60;
+        if (velocity < MAX_VELOCITY) {
+            velocity += acceleration / 60;
+        }
         repaint();
     }
 
+    public void pause() {
+        prev_velocity = velocity;
+        velocity = 0;
+        acceleration = 0;
+        prev_acc = acceleration;
+        isPaused = true;
+    }
+
+    public boolean checkPaused() {
+        return isPaused;
+    }
+
+    public void resume() {
+        velocity = prev_velocity;
+        acceleration = prev_acc;
+        isPaused = false;
+    }
 }

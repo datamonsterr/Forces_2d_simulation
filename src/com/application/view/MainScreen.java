@@ -2,6 +2,8 @@ package com.application.view;
 
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -12,7 +14,9 @@ import javax.swing.JPanel;
 
 import com.application.components.CubeObject;
 import com.application.components.CylinderObject;
+import com.application.components.Force;
 import com.application.components.MyObject;
+import com.application.components.MyObjectPanel;
 import com.application.components.Surface;
 import com.application.components.UserInput;
 
@@ -28,7 +32,7 @@ public class MainScreen extends JFrame {
 
         emptyPanel.setSize(1200, 300);
         emptyPanel.setMaximumSize(new Dimension(1200, 300));
-        emptyPanel.setBackground(MyObject.BACKGROUND_COLOR);
+        emptyPanel.setBackground(MyObjectPanel.BACKGROUND_COLOR);
 
         UserInput userInput = new UserInput();
 
@@ -43,21 +47,36 @@ public class MainScreen extends JFrame {
                 var userData = userInput.getUserInputMap();
                 Integer mass = Integer.parseInt(userData.get("Mass").getText());
                 Integer size = Integer.parseInt(userData.get("Size").getText());
-                Float firstActor = Float.parseFloat(userData.get("First Actor").getText());
-                Float secondActor = Float.parseFloat(userData.get("Second Actor").getText());
+                Integer firstActor = Integer.parseInt(userData.get("First Actor").getText());
+                Integer secondActor = Integer.parseInt(userData.get("Second Actor").getText());
                 Float frictionCoefficient = Float.parseFloat(userData.get("Friction Coefficient").getText());
                 String shape = userInput.getShape();
-                Float totalForce = firstActor - secondActor;
+                float totalForce = firstActor - secondActor;
                 String direction = totalForce > 0 ? "right" : "left";
 
                 MyObject obj;
+                float friction;
                 if (shape == "Cube") {
                     obj = new CubeObject(size, mass);
-                    totalForce = Math.abs(totalForce) - frictionCoefficient * mass * 10;
+                    friction = frictionCoefficient * mass * 10;
                 } else {
                     obj = new CylinderObject(size, mass);
-                    totalForce = Math.abs(totalForce) - frictionCoefficient * mass * 10 / 3;
+                    friction = frictionCoefficient * mass * 10 / 3;
                 }
+                totalForce = Math.abs(totalForce) - friction;
+
+                Force firstActorForce = new Force(obj, "Actor 1", firstActor, 1, new Point(0, 0));
+                Force secondActorForce = new Force(obj, "Actor 2", secondActor, -1, new Point(0, 0));
+                Force frictionForce = new Force(obj, "Friction", (int) friction, -1, new Point(0, obj.size / 2));
+                MyObjectPanel objPanel = new MyObjectPanel() {
+                    @Override
+                    protected void paintShape(Graphics g) {
+                        obj.draw(g);
+                        firstActorForce.apply(g);
+                        secondActorForce.apply(g);
+                        frictionForce.apply(g);
+                    }
+                };
 
                 float acceleration = totalForce / mass;
                 if (direction == "left") {
@@ -67,23 +86,41 @@ public class MainScreen extends JFrame {
                 if (totalForce < 0) {
                     acceleration = 0;
                     surface.setAcceralation(acceleration);
-                    obj.setDirection("none");
                 } else {
                     surface.setAcceralation(acceleration);
-                    obj.setDirection(direction);
                 }
-                System.out.println(acceleration);
 
                 simulationPanel.removeAll();
                 simulationPanel.revalidate();
-                simulationPanel.add(obj);
+                simulationPanel.add(objPanel);
                 simulationPanel.add(surface);
                 simulationPanel.repaint();
             }
         });
+
+        JButton pauseButton = new JButton("Pause");
+        pauseButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (surface.checkPaused()) {
+                    surface.resume();
+                    pauseButton.setText("Pause");
+                } else {
+                    surface.pause();
+                    pauseButton.setText("Resume");
+                }
+
+            }
+        });
         container.add(simulationPanel);
         container.add(userInput);
-        container.add(button);
+
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setMaximumSize(new Dimension(1200, 50));
+        buttonPanel.add(button);
+        buttonPanel.add(pauseButton);
+
+        container.add(buttonPanel);
 
         pack();
 
