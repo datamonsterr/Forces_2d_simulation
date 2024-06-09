@@ -2,11 +2,7 @@ package com.application.components;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.Point;
-import java.awt.image.BufferedImage;
-
-import javax.imageio.ImageIO;
 
 public class Force {
     private static Color ARROW_COLOR = new Color(0, 0, 0);
