@@ -60,7 +60,7 @@ public class Surface extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (acceleration == 0.0f) {
+        if (acceleration == 0.0f || isPaused) {
             return;
         } else if (velocity > 0) {
             for (int i = FRAME_START; i < FRAME_END; i++) {
@@ -90,10 +90,6 @@ public class Surface extends JPanel implements ActionListener {
     }
 
     public void pause() {
-        prev_velocity = velocity;
-        velocity = 0;
-        acceleration = 0;
-        prev_acc = acceleration;
         isPaused = true;
     }
 
@@ -102,8 +98,6 @@ public class Surface extends JPanel implements ActionListener {
     }
 
     public void resume() {
-        velocity = prev_velocity;
-        acceleration = prev_acc;
         isPaused = false;
     }
 }

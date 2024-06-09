@@ -109,7 +109,6 @@ public class MainScreen extends JFrame {
                     surface.pause();
                     pauseButton.setText("Resume");
                 }
-
             }
         });
         container.add(simulationPanel);
