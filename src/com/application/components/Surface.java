@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Surface extends JPanel implements ActionListener {
-    private final int FRAME_START = -20;
+    private final int FRAME_START = -30;
     private final int FRAME_END = 30;
     private final int RECT_WIDTH = 100;
     private final int RECT_WIDTH_IN_METRE = 5;
@@ -16,10 +16,8 @@ public class Surface extends JPanel implements ActionListener {
     private final int DELAY = 1000 / 60; // 60 fps
     private final Color BACKGROUND_COLOR = new Color(246, 211, 143, 255);
     private final Color SURFACE_COLOR = new Color(226, 135, 67);
-    private final float MAX_VELOCITY = 100000;
+    private final float MAX_VELOCITY = 200;
     private float velocity = 0; // m/s = velocity * (1/10 pixels/ (DELAY ms))
-    private float prev_velocity;
-    private float prev_acc;
     private float acceleration = 0; // m/s^2 = acceleration * (1/10 pixels/ (DELAY ms)^2)
     private boolean isPaused = false;
 
@@ -56,30 +54,34 @@ public class Surface extends JPanel implements ActionListener {
         for (int x : xPositions) {
             g.fillRect(x, 0, RECT_WIDTH, RECT_HEIGHT);
         }
+        g.setColor(Color.white);
+        g.setFont(new Font("Arial", Font.BOLD, 20));
+        if (acceleration != 0)
+            g.drawString("Accerelation: " + acceleration, 100, RECT_HEIGHT + 20);
+        if (velocity != 0)
+            g.drawString("Velocity: " + velocity, 100, RECT_HEIGHT + 40);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (acceleration == 0.0f) {
+        if (acceleration == 0.0f || isPaused) {
             return;
         } else if (velocity > 0) {
             for (int i = FRAME_START; i < FRAME_END; i++) {
                 int j = i - FRAME_START;
                 xPositions[j] -= velocity * ((RECT_WIDTH / RECT_WIDTH_IN_METRE) / DELAY);
-                // If a rectangle moves out of the left side, reposition it to the right side
                 if (xPositions[j] + RECT_WIDTH < FRAME_START * (RECT_WIDTH + GAP)) {
                     xPositions[j] = xPositions[lastIndex] + RECT_WIDTH + GAP;
-                    lastIndex = j; // Update the last index to the current rectangle
+                    lastIndex = j;
                 }
             }
         } else {
             for (int i = FRAME_END - 1; i >= FRAME_START; i--) {
                 int j = i - FRAME_START;
                 xPositions[j] -= velocity * ((RECT_WIDTH / RECT_WIDTH_IN_METRE) / DELAY);
-                // If a rectangle moves out of the left side, reposition it to the right side
                 if (xPositions[j] > FRAME_END * (RECT_WIDTH + GAP)) {
                     xPositions[j] = xPositions[firstIndex] - RECT_WIDTH - GAP;
-                    firstIndex = j; // Update the first index to the current rectangle
+                    firstIndex = j;
                 }
             }
         }
@@ -90,10 +92,6 @@ public class Surface extends JPanel implements ActionListener {
     }
 
     public void pause() {
-        prev_velocity = velocity;
-        velocity = 0;
-        acceleration = 0;
-        prev_acc = acceleration;
         isPaused = true;
     }
 
@@ -102,8 +100,6 @@ public class Surface extends JPanel implements ActionListener {
     }
 
     public void resume() {
-        velocity = prev_velocity;
-        acceleration = prev_acc;
         isPaused = false;
     }
 }

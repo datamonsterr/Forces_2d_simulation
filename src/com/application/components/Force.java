@@ -2,7 +2,11 @@ package com.application.components;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.Point;
+import java.awt.image.BufferedImage;
+
+import javax.imageio.ImageIO;
 
 public class Force {
     private static Color ARROW_COLOR = new Color(0, 0, 0);
@@ -28,6 +32,10 @@ public class Force {
         g.setColor(ARROW_COLOR);
         Point from = new Point(start.x + obj.center.x, start.y + obj.center.y);
         Point to = new Point(from.x + direction * length, from.y);
+        if (from.getY() < 5) {
+            from = new Point(from.x, from.y - 5);
+            to = new Point(to.x, to.y - 5);
+        }
         arrowLine(g, from, to);
         g.drawString(label, to.x - direction * 20, to.y - 10);
     }
