@@ -48,6 +48,14 @@ public class UserInput extends JPanel {
         add(panel);
     }
 
+    public void setShape(String shape) {
+        if (shape.toLowerCase().equals("cube")) {
+            cubeRadio.setSelected(true);
+        } else {
+            cylinderRadio.setSelected(true);
+        }
+    }
+
     public String getShape() {
         return cubeRadio.isSelected() ? "Cube" : "Cylinder";
     }

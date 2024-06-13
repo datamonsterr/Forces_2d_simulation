@@ -2,6 +2,7 @@ package com.application.view;
 
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -11,6 +12,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import com.application.components.CubeObject;
 import com.application.components.CylinderObject;
@@ -19,6 +21,7 @@ import com.application.components.MyObject;
 import com.application.components.MyObjectPanel;
 import com.application.components.Surface;
 import com.application.components.UserInput;
+import com.application.genai.GenAI;
 
 public class MainScreen extends JFrame {
     private Container container = getContentPane();
@@ -51,7 +54,7 @@ public class MainScreen extends JFrame {
                 Integer secondActor = Integer.parseInt(userData.get("Second Actor").getText());
                 Float frictionCoefficient = Float.parseFloat(userData.get("Friction Coefficient").getText());
                 String shape = userInput.getShape();
-                float totalForce = firstActor - secondActor;
+                float totalForce = firstActor + secondActor;
                 String direction = totalForce > 0 ? "right" : "left";
 
                 MyObject obj;
@@ -119,8 +122,33 @@ public class MainScreen extends JFrame {
         buttonPanel.add(button);
         buttonPanel.add(pauseButton);
 
-        container.add(buttonPanel);
+        JPanel genAiPanel = new JPanel();
+        JTextField genAiTextField = new JTextField(60);
+        genAiTextField.setFont(new Font("Arial", Font.PLAIN, 20));
+        JButton genAiButton = new JButton("Submit");
+        genAiButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                GenAI.generateContent(genAiTextField.getText());
+                var userData = userInput.getUserInputMap();
+                String shape = GenAI.getShape();
+                System.out.println(shape);
 
+                userData.get("Mass").setText(GenAI.getMass());
+                userData.get("Size").setText(GenAI.getSize());
+                userData.get("First Actor").setText(GenAI.getFirstActor());
+                userData.get("Second Actor").setText(GenAI.getSecondActor());
+                userData.get("Friction Coefficient").setText(GenAI.getFrictionCoefficient());
+                userInput.setShape(shape);
+            }
+        });
+
+        genAiPanel.add(genAiTextField);
+        genAiPanel.add(genAiButton);
+
+        container.add(buttonPanel);
+        genAiPanel.setMaximumSize(new Dimension(1200, 50));
+        container.add(genAiPanel);
         pack();
 
         setSize(1200, 900);
