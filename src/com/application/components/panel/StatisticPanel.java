@@ -4,6 +4,8 @@ import java.awt.*;
 
 import javax.swing.*;
 
+import com.application.components.controller.Controller;
+
 public class StatisticPanel extends JPanel {
     public StatisticPanel() {
         setOpaque(false);
@@ -20,7 +22,11 @@ public class StatisticPanel extends JPanel {
         g2d.fillRect(0, 0, getWidth(), getHeight());
         g2d.dispose();
 
-        g.setColor(Color.RED);
-        g.drawString(String.format("Velocity: %.2f", UpperPanel.getTime()), 10, 10);
+        g.setColor(Color.WHITE);
+        g.setFont(new Font("Arial", Font.PLAIN, 20));
+        g.drawString(String.format("Velocity: %.2f", Controller.getVelocity()), 10, 25);
+        g.drawString(String.format("Accerleration: %.2f", Controller.getObj().getAcc()), 10, 50);
+        g.drawString(String.format("Position: %.2f", Controller.getObj().getPosition(Controller.getTime())), 10,
+                75);
     }
 }

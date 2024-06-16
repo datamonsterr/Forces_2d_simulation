@@ -4,22 +4,16 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 
-import com.application.components.object.MyObject;
-
 public class Force {
     private static Color ARROW_COLOR = new Color(0, 0, 0);
     private String label;
     private int magnitude;
     private int direction; // 1 == l to r, -1 == r to l;
-    private MyObject obj;
-    private Point start;
 
-    public Force(MyObject obj, String label, int magnitude, int direction, Point start) {
-        this.obj = obj;
+    public Force(String label, int magnitude, int direction) {
         this.direction = direction;
         this.magnitude = magnitude;
         this.label = label;
-        this.start = start;
     }
 
     public void apply(Graphics g) {
