@@ -1,8 +1,6 @@
 package com.application.components.force;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Point;
+import java.awt.*;
 
 public class Force {
     private static Color ARROW_COLOR = new Color(0, 0, 0);

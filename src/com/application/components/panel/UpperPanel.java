@@ -1,11 +1,8 @@
 package com.application.components.panel;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
+import java.awt.event.*;
 import javax.swing.*;
-
 import com.application.components.controller.Controller;
 
 public class UpperPanel extends JLayeredPane implements ActionListener {

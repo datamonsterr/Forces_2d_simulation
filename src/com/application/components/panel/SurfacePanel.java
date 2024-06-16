@@ -1,9 +1,7 @@
 package com.application.components.panel;
 
-import javax.swing.*;
-
 import com.application.components.controller.Controller;
-
+import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 

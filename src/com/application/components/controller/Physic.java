@@ -11,32 +11,37 @@ public class Physic {
 
     public static double getTotalForce() {
         double totalForce = 0.0d;
-        double normalForce = Controller.getObj().getMass() * 10;
+        double normalForce = Controller.getObj().getMass() * 10.0d;
         totalForce += Controller.getObj().getActor1();
         totalForce += Controller.getObj().getActor2();
+        double frictionForce = 0.0d;
 
         if (Controller.getObj() instanceof CylinderObject) {
-            if (Math.abs(totalForce) < getSF() * normalForce) {
-                return 0;
+            if (Math.abs(totalForce) - 3 * getSF() * normalForce <= 0.001d) {
+                frictionForce = totalForce * 1 / 3;
             } else {
-                if (totalForce > 0) {
-                    totalForce -= getKF();
-                } else {
-                    totalForce += getKF();
-                }
+                frictionForce = getKF() * normalForce;
             }
         } else if (Controller.getObj() instanceof CubeObject) {
-            totalForce /= 6;
+            if (Math.abs(totalForce) - getSF() * normalForce <= 0.001d) {
+                frictionForce = totalForce;
+            } else {
+                frictionForce = getKF() * normalForce;
+            }
         }
-
+        if (totalForce > 0) {
+            totalForce -= frictionForce;
+        } else {
+            totalForce += frictionForce;
+        }
         return totalForce;
     }
 
     public static double getKF() {
-        return Controller.getObj().getMass() * 10 * Math.abs(Double.parseDouble(UserInput.get("Kinetic Friction")));
+        return Double.parseDouble(UserInput.get("Kinetic Friction"));
     }
 
     public static double getSF() {
-        return Controller.getObj().getMass() * 10 * Math.abs(Double.parseDouble(UserInput.get("Static Friction")));
+        return Double.parseDouble(UserInput.get("Static Friction"));
     }
 }

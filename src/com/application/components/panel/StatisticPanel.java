@@ -1,9 +1,7 @@
 package com.application.components.panel;
 
 import java.awt.*;
-
 import javax.swing.*;
-
 import com.application.components.controller.Controller;
 
 public class StatisticPanel extends JPanel {

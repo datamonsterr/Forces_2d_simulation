@@ -6,6 +6,7 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import com.application.components.controller.Controller;
 import com.application.components.controller.UserInput;
 
 public abstract class MyObject extends JPanel {
@@ -68,8 +69,8 @@ public abstract class MyObject extends JPanel {
     }
 
     @Override
-    public void paint(Graphics g) {
-        super.paint(g);
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
         drawShape(g, img);
     }
 

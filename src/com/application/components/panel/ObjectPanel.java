@@ -1,16 +1,12 @@
 package com.application.components.panel;
 
 import java.awt.Color;
-import java.awt.Container;
 import java.awt.Graphics;
-import java.awt.Image;
 
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import com.application.components.controller.Controller;
-import com.application.components.object.CubeObject;
-import com.application.components.object.MyObject;
+import com.application.components.object.*;
 
 public class ObjectPanel extends JPanel {
     private MyObject obj;
@@ -26,6 +22,12 @@ public class ObjectPanel extends JPanel {
         add(obj);
     }
 
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        Controller.getUpperPanel().repaint();
+    }
+
     public MyObject getObject() {
         return obj;
     }
@@ -33,9 +35,7 @@ public class ObjectPanel extends JPanel {
     public void setObject(MyObject newObj) {
         remove(obj);
         add(newObj);
-        revalidate();
         repaint();
-        Controller.getUpperPanel().repaint();
         obj = newObj;
         Controller.setObj(obj);
     }
