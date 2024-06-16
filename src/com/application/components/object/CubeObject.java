@@ -1,4 +1,4 @@
-package com.application.components;
+package com.application.components.object;
 
 import java.awt.Graphics;
 import java.awt.Image;
@@ -6,8 +6,8 @@ import java.awt.Image;
 import javax.imageio.ImageIO;
 
 public class CubeObject extends MyObject {
-    public CubeObject(int size, int mass) {
-        super(size, mass);
+    public CubeObject(int size, int mass, int x, int y) {
+        super(size, mass, x, y);
     }
 
     protected void drawShape(Graphics g) {

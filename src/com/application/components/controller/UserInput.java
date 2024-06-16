@@ -1,4 +1,4 @@
-package com.application.components;
+package com.application.components.controller;
 
 import javax.swing.*;
 

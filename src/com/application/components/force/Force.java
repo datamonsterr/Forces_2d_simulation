@@ -1,8 +1,10 @@
-package com.application.components;
+package com.application.components.force;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
+
+import com.application.components.object.MyObject;
 
 public class Force {
     private static Color ARROW_COLOR = new Color(0, 0, 0);
@@ -24,9 +26,8 @@ public class Force {
         int length = magnitude / 10;
         if (length <= 0)
             return;
-        g.setColor(MyObjectPanel.ARROW_COLOR);
         g.setColor(ARROW_COLOR);
-        Point from = new Point(start.x + obj.center.x, start.y + obj.center.y);
+        Point from = new Point(0, 0);
         Point to = new Point(from.x + direction * length, from.y);
         if (from.getY() < 5) {
             from = new Point(from.x, from.y - 5);
