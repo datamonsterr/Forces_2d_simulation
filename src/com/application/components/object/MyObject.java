@@ -7,7 +7,9 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import com.application.components.controller.Controller;
+import com.application.components.controller.Physic;
 import com.application.components.controller.UserInput;
+import com.application.components.force.Force;
 
 public abstract class MyObject extends JPanel {
     protected int mass;
@@ -64,7 +66,7 @@ public abstract class MyObject extends JPanel {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        setPreferredSize(new Dimension(width, height));
+        setPreferredSize(new Dimension((int) Controller.getWindowWidth(), height));
         setBackground(new Color(0, 0, 0, 0));
     }
 
@@ -72,6 +74,21 @@ public abstract class MyObject extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         drawShape(g, img);
+        if (getActor1() != 0) {
+            Force f = new Force("Actor 1", getActor1(), getActor1() > 0 ? 1 : -1);
+            g.setColor(Color.WHITE);
+            f.apply(g);
+        }
+        if (getActor2() != 0) {
+            Force f = new Force("Actor 2", getActor2(), getActor2() > 0 ? 1 : -1);
+            g.setColor(Color.CYAN);
+            f.apply(g);
+        }
+        if (getAcc() != 0) {
+            Force f = new Force("Friction", -1 * Physic.getFrictionForce(), Physic.getTotalForce() < 0 ? 1 : -1);
+            g.setColor(Color.RED);
+            f.apply(g);
+        }
     }
 
     protected abstract void drawShape(Graphics g, Image img);

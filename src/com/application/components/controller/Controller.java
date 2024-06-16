@@ -1,5 +1,7 @@
 package com.application.components.controller;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 
 import javax.swing.Timer;
@@ -93,5 +95,10 @@ public class Controller {
     public static void createTimer(ActionListener listener) {
         timer = new Timer(1000 / FPS, listener);
         timer.stop();
+    }
+
+    public static double getWindowWidth() {
+        Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
+        return size.getWidth();
     }
 }

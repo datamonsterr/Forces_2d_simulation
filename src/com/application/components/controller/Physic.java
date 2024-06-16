@@ -5,6 +5,8 @@ import com.application.components.object.CylinderObject;
 
 public class Physic {
 
+    private static double frictionForce = 0.0d;
+
     public static double calAcc() {
         return getTotalForce() / Controller.getObj().getMass();
     }
@@ -14,7 +16,6 @@ public class Physic {
         double normalForce = Controller.getObj().getMass() * 10.0d;
         totalForce += Controller.getObj().getActor1();
         totalForce += Controller.getObj().getActor2();
-        double frictionForce = 0.0d;
 
         if (Controller.getObj() instanceof CylinderObject) {
             if (Math.abs(totalForce) - 3 * getSF() * normalForce <= 0.001d) {
@@ -35,6 +36,10 @@ public class Physic {
             totalForce += frictionForce;
         }
         return totalForce;
+    }
+
+    public static double getFrictionForce() {
+        return frictionForce;
     }
 
     public static double getKF() {

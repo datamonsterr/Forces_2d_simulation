@@ -10,6 +10,6 @@ public class CubeObject extends MyObject {
     }
 
     protected void drawShape(Graphics g, Image img) {
-        g.drawImage(img, 0, 0, null);
+        g.drawImage(img, getWidth() / 2 - width / 2, 0, null);
     }
 }
