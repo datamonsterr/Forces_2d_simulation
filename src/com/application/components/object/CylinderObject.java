@@ -1,10 +1,11 @@
 package com.application.components.object;
 
 import java.awt.*;
+import java.net.URL;
 
 public class CylinderObject extends MyObject {
-    public CylinderObject(int mass, int width, int height, Image img) {
-        super(mass, width, height, img);
+    public CylinderObject(int mass, int width, int height, URL imgUrl) {
+        super(mass, width, height, imgUrl);
     }
 
     protected void drawShape(Graphics g, Image img) {

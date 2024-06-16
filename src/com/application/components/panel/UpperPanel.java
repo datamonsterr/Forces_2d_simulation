@@ -21,6 +21,8 @@ public class UpperPanel extends JLayeredPane implements ActionListener {
         add(surfacePane, JLayeredPane.PALETTE_LAYER);
         add(objectPane, JLayeredPane.POPUP_LAYER);
         add(topPane, JLayeredPane.POPUP_LAYER);
+        Controller.setObjPanel(objectPane);
+        Controller.setUpperPanel(this);
         Controller.createTimer(this);
     }
 

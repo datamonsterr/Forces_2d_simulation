@@ -1,6 +1,7 @@
 package com.application.components.panel;
 
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -16,6 +17,9 @@ import javax.swing.JTextField;
 import com.application.components.controller.Controller;
 import com.application.components.controller.Physic;
 import com.application.components.controller.UserInput;
+import com.application.components.object.CubeObject;
+import com.application.components.object.CylinderObject;
+import com.application.components.object.MyObject;
 
 public class LowerPanel extends JPanel {
     private final Color BACKGROUND_COLOR = new Color(13, 17, 23);
@@ -32,7 +36,8 @@ public class LowerPanel extends JPanel {
 
         rightPane.add(Box.createVerticalGlue());
         rightPane.add(creatPanel("Mass", 1000, 0, 0, 1.0f));
-        rightPane.add(creatPanel("Friction", 100, 0, 0, 0.01f));
+        rightPane.add(creatPanel("Kinetic Friction", 100, 0, 0, 0.01f));
+        rightPane.add(creatPanel("Static Friction", 100, 0, 0, 0.01f));
         rightPane.add(creatPanel("Actor 1", 1000, -1000, 0, 1.0f));
         rightPane.add(creatPanel("Actor 2", 1000, -1000, 0, 1.0f));
 
@@ -57,6 +62,29 @@ public class LowerPanel extends JPanel {
         leftPane.add(startButton);
         leftPane.add(resetButton);
         leftPane.add(pauseButton);
+        JButton shapeButton = new JButton("Cylinder");
+        shapeButton.addActionListener(e -> {
+            if (Controller.getObj() instanceof CubeObject) {
+                try {
+                    MyObject myObj = new CylinderObject(50, 500, 150,
+                            getClass().getResource("../../assets/bugatti.png"));
+                    Controller.getObjPanel().setObject(myObj);
+                } catch (Exception ex) {
+                    System.out.println("Cannot find image");
+                }
+                shapeButton.setText("Cube");
+            } else if (Controller.getObj() instanceof CylinderObject) {
+                try {
+                    MyObject myObj = new CubeObject(50, 500, 150,
+                            getClass().getResource("../../assets/container.jpg"));
+                    Controller.getObjPanel().setObject(myObj);
+                } catch (Exception ex) {
+                    System.out.println("Cannot find image");
+                }
+                shapeButton.setText("Cyliner");
+            }
+        });
+        leftPane.add(shapeButton);
         add(leftPane);
         add(rightPane);
     }

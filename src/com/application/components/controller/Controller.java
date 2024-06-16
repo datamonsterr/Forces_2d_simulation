@@ -1,18 +1,40 @@
 package com.application.components.controller;
 
-import javax.swing.Timer;
 import java.awt.event.ActionListener;
 
+import javax.swing.Timer;
+
 import com.application.components.object.MyObject;
+import com.application.components.panel.ObjectPanel;
+import com.application.components.panel.UpperPanel;
 
 public class Controller {
+    private static ObjectPanel objPanel;
+    private static UpperPanel upperPanel;
     public static final int FPS = 60;
     private static Timer timer;
 
     private static MyObject obj;
     private static double time = 0.0d; // measure in seconds
 
+    public static void setObjPanel(ObjectPanel objPanel) {
+        Controller.objPanel = objPanel;
+    }
+
+    public static ObjectPanel getObjPanel() {
+        return objPanel;
+    }
+
+    public static void setUpperPanel(UpperPanel upperPanel) {
+        Controller.upperPanel = upperPanel;
+    }
+
+    public static UpperPanel getUpperPanel() {
+        return upperPanel;
+    }
+
     public static void setObj(MyObject obj) {
+        resetTimer();
         Controller.obj = obj;
     }
 
@@ -72,5 +94,4 @@ public class Controller {
         timer = new Timer(1000 / FPS, listener);
         timer.stop();
     }
-
 }
