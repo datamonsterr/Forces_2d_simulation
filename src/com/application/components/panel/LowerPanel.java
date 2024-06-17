@@ -13,6 +13,8 @@ public class LowerPanel extends JPanel {
         setBackground(BACKGROUND_COLOR);
         JPanel leftPane = new JPanel();
         leftPane.setBackground(BACKGROUND_COLOR);
+        leftPane.setLayout(new BorderLayout());
+
         JPanel rightPane = new JPanel();
         rightPane.setBackground(BACKGROUND_COLOR);
         rightPane.setLayout(new BoxLayout(rightPane, BoxLayout.Y_AXIS));
@@ -25,6 +27,7 @@ public class LowerPanel extends JPanel {
         rightPane.add(creatPanel("Actor 1", 5000, -5000, 0, 1.0f));
         rightPane.add(creatPanel("Actor 2", 5000, -5000, 0, 1.0f));
 
+        JPanel btnPanel = new JPanel();
         JButton startButton = new JButton("Start");
         JButton resetButton = new JButton("Reset");
         JButton pauseButton = new JButton("Pause");
@@ -43,9 +46,9 @@ public class LowerPanel extends JPanel {
         resetButton.addActionListener(e -> {
             Controller.resetTimer();
         });
-        leftPane.add(startButton);
-        leftPane.add(resetButton);
-        leftPane.add(pauseButton);
+        btnPanel.add(startButton);
+        btnPanel.add(resetButton);
+        btnPanel.add(pauseButton);
         JButton shapeButton = new JButton("Cylinder");
         shapeButton.addActionListener(e -> {
             if (Controller.getObj() instanceof CubeObject) {
@@ -68,15 +71,24 @@ public class LowerPanel extends JPanel {
                 shapeButton.setText("Cyliner");
             }
         });
-        leftPane.add(shapeButton);
+        btnPanel.add(shapeButton);
+
+        ChatPanel chatBotPane = new ChatPanel();
+        leftPane.add(chatBotPane.getChatPanel(), BorderLayout.CENTER);
+        leftPane.add(chatBotPane.getInputPanel(), BorderLayout.SOUTH);
+
         add(leftPane);
         add(rightPane);
     }
 
     private JPanel creatPanel(String label, int maxVal, int minVal, int initVal, float step) {
         JPanel panel = new JPanel();
+        JPanel innerPanel = new JPanel();
+        panel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        innerPanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
         panel.setBackground(BACKGROUND_COLOR);
-        panel.setFont(new Font("Arial", Font.PLAIN, 20));
+        innerPanel.setBackground(BACKGROUND_COLOR);
+        panel.setFont(new Font("monospace", Font.PLAIN, 20));
         JLabel lb = new JLabel(label);
         lb.setForeground(Color.WHITE);
         JSlider slider = new JSlider(JSlider.HORIZONTAL, minVal, maxVal, initVal);
@@ -98,9 +110,13 @@ public class LowerPanel extends JPanel {
             Controller.getObj().setAcc(Physic.calAcc());
             Controller.getObjPanel().repaint();
         });
+        innerPanel.add(slider);
+        innerPanel.add(textField);
+
         panel.add(lb);
-        panel.add(slider);
-        panel.add(textField);
+        panel.add(Box.createHorizontalStrut(100 - label.length() * 5));
+        panel.add(innerPanel);
+
         return panel;
     }
 }
