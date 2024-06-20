@@ -16,6 +16,7 @@ public class Physic {
         double normalForce = Controller.getObj().getMass() * 10.0d;
         totalForce += Controller.getObj().getActor1();
         totalForce += Controller.getObj().getActor2();
+        System.out.println("Actor 1:" + Controller.getObj().getActor1());
 
         if (Controller.getObj() instanceof CylinderObject) {
             if (Math.abs(totalForce) - 3 * getSF() * normalForce <= 0.001d) {
@@ -32,8 +33,10 @@ public class Physic {
         }
         if (totalForce > 0) {
             totalForce -= frictionForce;
-        } else {
+        } else if (totalForce < 0) {
             totalForce += frictionForce;
+        } else {
+            frictionForce = 0.0d;
         }
         return totalForce;
     }

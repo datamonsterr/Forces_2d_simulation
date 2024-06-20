@@ -12,6 +12,7 @@ import com.application.components.controller.UserInput;
 import com.application.components.force.Force;
 
 public abstract class MyObject extends JPanel {
+    protected double position = 0;
     protected int mass;
     protected double velocity = 0.0d;
     protected double acceleration = 0.0d;
@@ -35,10 +36,6 @@ public abstract class MyObject extends JPanel {
         return velocity + t * acceleration;
     }
 
-    public double getPosition(double t) {
-        return velocity * t + 0.5 * acceleration * t * t;
-    }
-
     public double getAcc() {
         return acceleration;
     }
@@ -53,6 +50,18 @@ public abstract class MyObject extends JPanel {
 
     public void setAcc(double acceleration) {
         this.acceleration = acceleration;
+    }
+
+    public void setPosition(double position) {
+        this.position = position;
+    }
+
+    public double getPosition() {
+        return position;
+    }
+
+    public double getFriction() {
+        return friction;
     }
 
     public MyObject(int mass, int width, int height, URL imgURL) {
@@ -84,8 +93,9 @@ public abstract class MyObject extends JPanel {
             g.setColor(Color.CYAN);
             f.apply(g);
         }
-        if (getAcc() != 0) {
-            Force f = new Force("Friction", -1 * Physic.getFrictionForce(), Physic.getTotalForce() < 0 ? 1 : -1);
+        if (Physic.getTotalForce() != 0) {
+            Force f = new Force("Friction", -1 * Physic.getFrictionForce(),
+                    Physic.getTotalForce() > 0 ? 1 : -1);
             g.setColor(Color.RED);
             f.apply(g);
         }

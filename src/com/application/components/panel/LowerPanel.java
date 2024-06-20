@@ -22,8 +22,8 @@ public class LowerPanel extends JPanel {
 
         rightPane.add(Box.createVerticalGlue());
         rightPane.add(creatPanel("Mass", 1000, 0, 0, 1.0f));
-        rightPane.add(creatPanel("Kinetic Friction", 100, 0, 0, 0.01f));
         rightPane.add(creatPanel("Static Friction", 100, 0, 0, 0.01f));
+        rightPane.add(creatPanel("Kinetic Friction", 100, 0, 0, 0.01f));
         rightPane.add(creatPanel("Actor 1", 5000, -5000, 0, 1.0f));
         rightPane.add(creatPanel("Actor 2", 5000, -5000, 0, 1.0f));
 
@@ -76,6 +76,7 @@ public class LowerPanel extends JPanel {
         ChatPanel chatBotPane = new ChatPanel();
         leftPane.add(chatBotPane.getChatPanel(), BorderLayout.CENTER);
         leftPane.add(chatBotPane.getInputPanel(), BorderLayout.SOUTH);
+        leftPane.add(btnPanel, BorderLayout.NORTH);
 
         add(leftPane);
         add(rightPane);
@@ -113,6 +114,7 @@ public class LowerPanel extends JPanel {
         innerPanel.add(slider);
         innerPanel.add(textField);
 
+        panel.add(Box.createHorizontalStrut(100));
         panel.add(lb);
         panel.add(Box.createHorizontalStrut(100 - label.length() * 5));
         panel.add(innerPanel);

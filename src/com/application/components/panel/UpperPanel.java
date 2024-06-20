@@ -4,6 +4,8 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import com.application.components.controller.Controller;
+import com.application.components.controller.Physic;
+import com.application.components.controller.UserInput;
 
 public class UpperPanel extends JLayeredPane implements ActionListener {
     private ObjectPanel objectPane = new ObjectPanel();
@@ -26,9 +28,28 @@ public class UpperPanel extends JLayeredPane implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         Controller.tick();
+        Controller.getObj().setPosition(Controller.getObj().getPosition()
+                + 0.5 * Controller.getTime() * Controller.getTime() * Controller.getObj().getAcc());
         topPane.repaint();
         surfacePane.updatePosition(Controller.getTime());
         surfacePane.repaint();
+        if (Physic.getSF() < Physic.getKF()) {
+            Controller.pauseTimer();
+            JPopupMenu popup = new JPopupMenu();
+            JButton button = new JButton("OK");
+            button.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    popup.setVisible(false);
+                    UserInput.set("Static Fricition", "0");
+                }
+            });
+            popup.add(new JLabel("Error: Static Friction is less than Kinetic Friction!"));
+            popup.add(new JLabel("Please set a different friction value and resume."));
+            popup.add(button);
+            popup.show(this, getWidth() / 2, getHeight() / 2);
+            popup.setVisible(true);
+        }
     }
 
     @Override

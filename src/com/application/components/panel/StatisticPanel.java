@@ -24,7 +24,7 @@ public class StatisticPanel extends JPanel {
         g.setFont(new Font("Arial", Font.PLAIN, 20));
         g.drawString(String.format("Velocity: %.2f", Controller.getVelocity()), 10, 25);
         g.drawString(String.format("Accerleration: %.2f", Controller.getObj().getAcc()), 10, 50);
-        g.drawString(String.format("Position: %.2f", Controller.getObj().getPosition(Controller.getTime())), 10,
+        g.drawString(String.format("Position: %.2f", Controller.getObj().getPosition()), 10,
                 75);
     }
 }
