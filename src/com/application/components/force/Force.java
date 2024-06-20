@@ -11,16 +11,13 @@ public class Force {
 
     public Force(String label, double magnitude, int direction) {
         this.direction = direction;
-        this.magnitude = direction * magnitude;
+        this.magnitude = magnitude;
         this.label = label;
     }
 
-    public void apply(Graphics g) {
-        double length = magnitude / 10;
-        if (length <= 0)
-            return;
-        Point from = new Point(Controller.getObj().getWidth() / 2, Controller.getObj().getHeight() / 2);
-        Point to = new Point(from.x + (int) (direction * length), from.y);
+    public void apply(Graphics g, int fromY) {
+        Point from = new Point(Controller.getObj().getWidth() / 2, Controller.getObj().getHeight() / 2 + fromY);
+        Point to = new Point(from.x + direction * (int) (magnitude / 10), from.y);
         arrowLine(g, from, to);
         g.drawString(label, to.x - direction * 20, to.y - 10);
     }

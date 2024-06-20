@@ -79,25 +79,34 @@ public abstract class MyObject extends JPanel {
         setBackground(new Color(0, 0, 0, 0));
     }
 
+    public double getFrictionForce() {
+        return Physic.getFrictionForce();
+    }
+
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         drawShape(g, img);
         if (getActor1() != 0) {
-            Force f = new Force("Actor 1", getActor1(), getActor1() > 0 ? 1 : -1);
+            Force f = new Force("Actor 1", Math.abs(getActor1()), getActor1() > 0 ? 1 : -1);
             g.setColor(Color.WHITE);
-            f.apply(g);
+            f.apply(g, -10);
         }
         if (getActor2() != 0) {
-            Force f = new Force("Actor 2", getActor2(), getActor2() > 0 ? 1 : -1);
+            Force f = new Force("Actor 2", Math.abs(getActor2()), getActor2() > 0 ? 1 : -1);
             g.setColor(Color.CYAN);
-            f.apply(g);
+            f.apply(g, 0);
         }
-        if (Physic.getTotalForce() != 0) {
-            Force f = new Force("Friction", -1 * Physic.getFrictionForce(),
-                    Physic.getTotalForce() > 0 ? 1 : -1);
+        if (getActor1() != 0 || getActor2() != 0) {
+            Force f = new Force("Resultant", Math.abs(getActor1() + getActor2()),
+                    getActor1() + getActor2() > 0 ? 1 : -1);
+            g.setColor(Color.GREEN);
+            f.apply(g, -20);
+        }
+        if (getFrictionForce() != 0) {
+            Force f = new Force("Friction", Math.abs(getFrictionForce()), getActor1() + getActor2() < 0 ? 1 : -1);
             g.setColor(Color.RED);
-            f.apply(g);
+            f.apply(g, 10);
         }
     }
 

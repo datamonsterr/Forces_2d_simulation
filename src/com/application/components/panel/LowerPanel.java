@@ -44,6 +44,8 @@ public class LowerPanel extends JPanel {
             Controller.startTimer();
         });
         resetButton.addActionListener(e -> {
+            Controller.getObj().setPosition(0);
+            Controller.getObj().setVelocity(0);
             Controller.resetTimer();
         });
         btnPanel.add(startButton);
@@ -109,7 +111,10 @@ public class LowerPanel extends JPanel {
             textField.setText(String.format("%.3f", value));
             UserInput.set(label, value + "");
             Controller.getObj().setAcc(Physic.calAcc());
+            Controller.getUpperPanel().repaint();
             Controller.getObjPanel().repaint();
+            Controller.getObj().revalidate();
+            Controller.getObj().repaint();
         });
         innerPanel.add(slider);
         innerPanel.add(textField);

@@ -25,7 +25,6 @@ public class ObjectPanel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        Controller.getUpperPanel().repaint();
     }
 
     public MyObject getObject() {
@@ -38,5 +37,6 @@ public class ObjectPanel extends JPanel {
         repaint();
         obj = newObj;
         Controller.setObj(obj);
+        Controller.getUpperPanel().repaint();
     }
 }
