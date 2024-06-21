@@ -1,7 +1,6 @@
 package com.application.components.panel;
 
 import java.awt.Color;
-import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
