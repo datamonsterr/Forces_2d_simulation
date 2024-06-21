@@ -26,6 +26,7 @@ public class SurfacePanel extends JPanel {
 
     @Override
     protected void paintComponent(Graphics g) {
+        updatePosition(Controller.getTime());
         super.paintComponent(g);
         g.setColor(SURFACE_COLOR);
         for (int x : xPositions) {

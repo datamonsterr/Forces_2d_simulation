@@ -5,11 +5,11 @@ import java.awt.Image;
 import java.net.URL;
 
 public class CubeObject extends MyObject {
-    public CubeObject(int mass, int width, int height, URL imgUrl) {
-        super(mass, width, height, imgUrl);
+    public CubeObject(int mass, int height, URL imgUrl) {
+        super(mass, height, imgUrl);
     }
 
     protected void drawShape(Graphics g, Image img) {
-        g.drawImage(img, getWidth() / 2 - width / 2, 0, null);
+        g.drawImage(img, getWidth() / 2 - calWidth(img.getWidth(null), img.getHeight(null), height) / 2, 0, null);
     }
 }

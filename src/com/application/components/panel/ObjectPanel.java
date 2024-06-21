@@ -14,17 +14,12 @@ public class ObjectPanel extends JPanel {
     public ObjectPanel() {
         setBackground(new Color(0, 0, 0, 0));
         try {
-            obj = new CubeObject(50, 500, 150, getClass().getResource("../../assets/container.jpg"));
+            obj = new CubeObject(50, 150, getClass().getResource("../../assets/container.jpg"));
             Controller.setObj(obj);
         } catch (Exception e) {
             System.out.println("Cannot find image");
         }
         add(obj);
-    }
-
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
     }
 
     public MyObject getObject() {

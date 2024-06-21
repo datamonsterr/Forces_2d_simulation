@@ -64,8 +64,8 @@ public class LowerPanel extends JPanel {
                 JButton okButton = new JButton("OK");
                 okButton.addActionListener(e1 -> {
                     try {
-                        MyObject myObj = new CylinderObject(50, 500, 150,
-                                getClass().getResource("../../assets/bugatti.png"),
+                        MyObject myObj = new CylinderObject(50, 150,
+                                getClass().getResource("../../assets/ball.png"),
                                 Integer.parseInt(radiusField.getText()));
                         Controller.getObjPanel().setObject(myObj);
                     } catch (Exception ex) {
@@ -78,7 +78,7 @@ public class LowerPanel extends JPanel {
                 dialog.setVisible(true);
             } else if (Controller.getObj() instanceof CylinderObject) {
                 try {
-                    MyObject myObj = new CubeObject(50, 500, 150,
+                    MyObject myObj = new CubeObject(50, 150,
                             getClass().getResource("../../assets/container.jpg"));
                     Controller.getObjPanel().setObject(myObj);
                 } catch (Exception ex) {

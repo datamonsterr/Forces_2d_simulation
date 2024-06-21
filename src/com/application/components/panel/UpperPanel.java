@@ -31,7 +31,10 @@ public class UpperPanel extends JLayeredPane implements ActionListener {
         Controller.getObj().setPosition(Controller.getObj().getPosition()
                 + 0.5 * Controller.getTime() * Controller.getTime() * Controller.getObj().getAcc());
         topPane.repaint();
-        surfacePane.updatePosition(Controller.getTime());
+        repaint();
+        objectPane.repaint();
+        objectPane.getObject().revalidate();
+        objectPane.getObject().repaint();
         surfacePane.repaint();
         if (Physic.getSF() < Physic.getKF()) {
             Controller.pauseTimer();
