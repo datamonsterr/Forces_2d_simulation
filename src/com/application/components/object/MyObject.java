@@ -22,7 +22,6 @@ public abstract class MyObject extends JPanel {
     protected Image img;
     protected double actor1;
     protected double actor2;
-    protected double friction;
 
     public double getActor1() {
         return Double.parseDouble(UserInput.get("Actor 1"));
@@ -58,10 +57,6 @@ public abstract class MyObject extends JPanel {
 
     public double getPosition() {
         return position;
-    }
-
-    public double getFriction() {
-        return friction;
     }
 
     public MyObject(int mass, int width, int height, URL imgURL) {

@@ -58,7 +58,7 @@ public class UpperPanel extends JLayeredPane implements ActionListener {
         defaultPane.setBounds(0, 0, getWidth(), getHeight());
         objectPane.setBounds(0, getHeight() - 180, getWidth(), 150);
         surfacePane.setBounds(0, getHeight() - 80, getWidth(), 80);
-        topPane.setBounds(100, 150, 200, 200);
+        topPane.setBounds(100, 150, 250, 200);
     }
 
 }

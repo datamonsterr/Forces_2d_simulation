@@ -54,14 +54,28 @@ public class LowerPanel extends JPanel {
         JButton shapeButton = new JButton("Cylinder");
         shapeButton.addActionListener(e -> {
             if (Controller.getObj() instanceof CubeObject) {
-                try {
-                    MyObject myObj = new CylinderObject(50, 500, 150,
-                            getClass().getResource("../../assets/bugatti.png"));
-                    Controller.getObjPanel().setObject(myObj);
-                } catch (Exception ex) {
-                    System.out.println("Cannot find image");
-                }
-                shapeButton.setText("Cube");
+                JDialog dialog = new JDialog();
+                dialog.setLayout(new FlowLayout());
+                dialog.setSize(300, 100);
+                dialog.setLocationRelativeTo(null);
+                dialog.add(new JLabel("Radius: "));
+                JTextField radiusField = new JTextField(10);
+                dialog.add(radiusField);
+                JButton okButton = new JButton("OK");
+                okButton.addActionListener(e1 -> {
+                    try {
+                        MyObject myObj = new CylinderObject(50, 500, 150,
+                                getClass().getResource("../../assets/bugatti.png"),
+                                Integer.parseInt(radiusField.getText()));
+                        Controller.getObjPanel().setObject(myObj);
+                    } catch (Exception ex) {
+                        System.out.println("Cannot find image");
+                    }
+                    dialog.dispose();
+                    shapeButton.setText("Cube");
+                });
+                dialog.add(okButton);
+                dialog.setVisible(true);
             } else if (Controller.getObj() instanceof CylinderObject) {
                 try {
                     MyObject myObj = new CubeObject(50, 500, 150,
