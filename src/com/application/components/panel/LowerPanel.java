@@ -68,6 +68,7 @@ public class LowerPanel extends JPanel {
                                 getClass().getResource("../../assets/ball.png"),
                                 Integer.parseInt(radiusField.getText()));
                         Controller.getObjPanel().setObject(myObj);
+                        Controller.getObj().setAcc(Physic.calAcc());
                     } catch (Exception ex) {
                         System.out.println("Cannot find image");
                     }
@@ -81,6 +82,7 @@ public class LowerPanel extends JPanel {
                     MyObject myObj = new CubeObject(50, 150,
                             getClass().getResource("../../assets/container.jpg"));
                     Controller.getObjPanel().setObject(myObj);
+                    Controller.getObj().setAcc(Physic.calAcc());
                 } catch (Exception ex) {
                     System.out.println("Cannot find image");
                 }
