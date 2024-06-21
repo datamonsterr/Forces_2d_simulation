@@ -67,9 +67,10 @@ public class GenAI {
                 reqBody.append("\"parts\": [");
                 reqBody.append("{\"text\": ");
                 reqBody.append("\"" + message.get("text") + "\"}");
-                reqBody.append("]}");
+                reqBody.append("]},");
             }
             reqBody.append("]}");
+            System.out.println("Debug: " + reqBody.toString() + "\n");
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(uri)
                     .header("Content-Type", "application/json")
@@ -79,6 +80,7 @@ public class GenAI {
                     .thenApply(HttpResponse::body)
                     .thenAccept(ChatPanel::addMessage)
                     .join();
+
         } catch (URISyntaxException e) {
             e.printStackTrace();
         }

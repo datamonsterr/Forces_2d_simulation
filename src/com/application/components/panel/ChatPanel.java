@@ -15,6 +15,7 @@ import com.application.genai.GenAI;
 public class ChatPanel extends JPanel {
     private static JPanel chatPanel = new JPanel();
     private static JPanel inputPanel = new JPanel();
+    private static JTextArea chatArea = new JTextArea();
     private static ArrayList<Map<String, String>> messages = new ArrayList<>();
 
     public ChatPanel() {
@@ -27,7 +28,6 @@ public class ChatPanel extends JPanel {
         scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
         // Create a text area for chat messages (initially empty)
-        JTextArea chatArea = new JTextArea();
         chatArea.setEditable(false);
         chatArea.setLineWrap(true);
         chatArea.setWrapStyleWord(true);
@@ -55,7 +55,10 @@ public class ChatPanel extends JPanel {
                     m.put("role", "user");
                     m.put("text", message);
                     messages.add(m);
-                    GenAI.generateContent(messages);
+                    new Thread(
+                            () -> {
+                                GenAI.generateContent(messages);
+                            }).start();
 
                     inputField.setText("");
                 }
@@ -77,13 +80,18 @@ public class ChatPanel extends JPanel {
     }
 
     public static void addMessage(String resp) {
-        Pattern msgPattern = Pattern.compile("(?<=\"text\":\\s\")([\\w\\W]+)(?=\".+}.+],.+\"role\")");
-
+        Pattern msgPattern = Pattern.compile("(?<=\"text\":\\s\")([\\w\\W]+?)(?=\")", Pattern.DOTALL);
         Matcher matcher = msgPattern.matcher(resp);
 
         if (matcher.find()) {
-            System.out.println("\ncode: " + matcher.group(0).replace("\n", ""));
+            var ans = matcher.group(0).replace("\\n", "");
+            Map<String, String> m = new HashMap<>();
+            m.put("role", "model");
+            m.put("text", ans);
+            messages.add(m);
+            chatArea.append("AI: " + ans + "\n");
         } else {
+            System.out.println(resp);
             System.out.println("No match found");
         }
     }
