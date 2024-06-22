@@ -13,6 +13,7 @@ public class SurfacePanel extends JPanel {
     private final int FRAME_START = -10;
     private final Color BACKGROUND_COLOR = new Color(4, 3, 54);
     private final Color SURFACE_COLOR = new Color(240, 240, 240);
+    private final int MAX_V = 200;
 
     private ArrayList<Integer> xPositions = new ArrayList<Integer>();
 
@@ -37,7 +38,11 @@ public class SurfacePanel extends JPanel {
     public void updatePosition(double t) {
         for (int i = 0; i < xPositions.size(); i++) {
             int x = xPositions.get(i);
-            xPositions.set(i, x - (int) (Controller.getObj().getAcc() * t * t * 0.5));
+            int tmp = (int) (Math.round(Controller.getObj().getAcc() * t * t * 0.5));
+            if (tmp > MAX_V) {
+                tmp = MAX_V;
+            }
+            xPositions.set(i, x - tmp);
             if (x + RECT_WIDTH + GAP < FRAME_START * (RECT_WIDTH + GAP)) {
                 x = xPositions.getLast() + RECT_WIDTH + GAP;
                 xPositions.remove(0);

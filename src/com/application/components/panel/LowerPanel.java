@@ -58,7 +58,7 @@ public class LowerPanel extends JPanel {
                 dialog.setLayout(new FlowLayout());
                 dialog.setSize(300, 100);
                 dialog.setLocationRelativeTo(null);
-                dialog.add(new JLabel("Radius: "));
+                dialog.add(new JLabel("Radius (cm): "));
                 JTextField radiusField = new JTextField(10);
                 dialog.add(radiusField);
                 JButton okButton = new JButton("OK");
