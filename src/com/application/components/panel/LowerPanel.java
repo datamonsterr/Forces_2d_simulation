@@ -21,11 +21,11 @@ public class LowerPanel extends JPanel {
         rightPane.setPreferredSize(new Dimension(300, 100));
 
         rightPane.add(Box.createVerticalGlue());
-        rightPane.add(creatPanel("Mass", 1000, 0, 0, 1.0f));
-        rightPane.add(creatPanel("Static Friction", 100, 0, 0, 0.01f));
-        rightPane.add(creatPanel("Kinetic Friction", 100, 0, 0, 0.01f));
-        rightPane.add(creatPanel("Actor 1", 5000, -5000, 0, 1.0f));
-        rightPane.add(creatPanel("Actor 2", 5000, -5000, 0, 1.0f));
+        rightPane.add(creatPanel("Mass", 1000, 0, 0, 1.0d));
+        rightPane.add(creatPanel("Static Friction", 100, 0, 0, 0.01d));
+        rightPane.add(creatPanel("Kinetic Friction", 100, 0, 0, 0.01d));
+        rightPane.add(creatPanel("Actor 1", 5000, -5000, 0, 1.0d));
+        rightPane.add(creatPanel("Actor 2", 5000, -5000, 0, 1.0d));
 
         JPanel btnPanel = new JPanel();
         JButton startButton = new JButton("Start");
@@ -100,7 +100,7 @@ public class LowerPanel extends JPanel {
         add(rightPane);
     }
 
-    private JPanel creatPanel(String label, int maxVal, int minVal, int initVal, float step) {
+    private JPanel creatPanel(String label, int maxVal, int minVal, int initVal, double step) {
         JPanel panel = new JPanel();
         JPanel innerPanel = new JPanel();
         panel.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -111,11 +111,12 @@ public class LowerPanel extends JPanel {
         JLabel lb = new JLabel(label);
         lb.setForeground(Color.WHITE);
         JSlider slider = new JSlider(JSlider.HORIZONTAL, minVal, maxVal, initVal);
+        UserInput.set(label, slider, step);
         JTextField textField = new JTextField(5);
         textField.setText(slider.getValue() + "");
         textField.addActionListener(e -> {
             try {
-                Float value = Float.parseFloat(textField.getText());
+                Double value = Double.parseDouble(textField.getText());
                 slider.setValue((int) (value / step));
             } catch (NumberFormatException ex) {
                 textField.setText(slider.getValue() * step + "");
@@ -123,9 +124,8 @@ public class LowerPanel extends JPanel {
         });
         slider.addChangeListener(e -> {
             JSlider source = (JSlider) e.getSource();
-            float value = source.getValue() * step;
+            double value = source.getValue() * step;
             textField.setText(String.format("%.3f", value));
-            UserInput.set(label, value + "");
             Controller.getObj().setAcc(Physic.calAcc());
             Controller.getUpperPanel().repaint();
             Controller.getObjPanel().repaint();

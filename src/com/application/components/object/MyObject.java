@@ -28,11 +28,11 @@ public abstract class MyObject extends JPanel {
     }
 
     public double getActor1() {
-        return Double.parseDouble(UserInput.get("Actor 1"));
+        return UserInput.get("Actor 1");
     }
 
     public double getActor2() {
-        return Double.parseDouble(UserInput.get("Actor 2"));
+        return UserInput.get("Actor 2");
     }
 
     public double getCurVelocity(double t) {
@@ -44,7 +44,7 @@ public abstract class MyObject extends JPanel {
     }
 
     public double getMass() {
-        return Double.parseDouble(UserInput.get("Mass"));
+        return UserInput.get("Mass");
     }
 
     public void setVelocity(double velocity) {

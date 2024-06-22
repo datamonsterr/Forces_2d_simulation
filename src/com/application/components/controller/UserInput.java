@@ -3,15 +3,38 @@ package com.application.components.controller;
 import java.util.HashMap;
 import java.util.Map;
 
-public class UserInput {
-    private static Map<String, String> userInput = new HashMap<>(
-            Map.of("Mass", "0", "Actor 1", "0", "Actor 2", "0", "Kinetic Friction", "0", "Static Friction", "0"));
+import javax.swing.JSlider;
 
-    public static void set(String key, String value) {
-        userInput.put(key, value);
+public class UserInput {
+    private static Map<String, JSlider> userInput = new HashMap<>();
+    private static Map<String, Double> userInputStep = new HashMap<>();
+
+    public static void set(String key, JSlider slider, double step) {
+        userInput.put(key, slider);
+        userInputStep.put(key, step);
     }
 
-    public static String get(String key) {
-        return userInput.get(key);
+    public static void setVal(String key, int value) {
+        userInput.get(key).setValue(value);
+    }
+
+    public static void setVal(String key, double value) {
+        value /= userInputStep.get(key);
+        int newValue = Integer.parseInt(String.valueOf(Math.round(value)));
+        userInput.get(key).setValue(newValue);
+    }
+
+    public static double get(String key) {
+        return userInput.get(key).getValue() * userInputStep.get(key);
+    }
+
+    public static String getAll() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Data(");
+        for (Map.Entry<String, JSlider> entry : userInput.entrySet()) {
+            sb.append(entry.getKey()).append(": ").append(entry.getValue().getValue()).append(",");
+        }
+        sb.append(")");
+        return sb.toString();
     }
 }

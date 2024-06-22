@@ -42,10 +42,10 @@ public class Physic {
     }
 
     public static double getKF() {
-        return Double.parseDouble(UserInput.get("Kinetic Friction"));
+        return UserInput.get("Kinetic Friction");
     }
 
     public static double getSF() {
-        return Double.parseDouble(UserInput.get("Static Friction"));
+        return UserInput.get("Static Friction");
     }
 }

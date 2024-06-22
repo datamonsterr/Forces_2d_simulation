@@ -44,7 +44,8 @@ public class UpperPanel extends JLayeredPane implements ActionListener {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     popup.setVisible(false);
-                    UserInput.set("Static Fricition", "0");
+                    UserInput.setVal("Static Friction", 0);
+                    UserInput.setVal("Kinetic Friction", 0);
                 }
             });
             popup.add(new JLabel("Error: Static Friction is less than Kinetic Friction!"));
