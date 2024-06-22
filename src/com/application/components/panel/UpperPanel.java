@@ -29,7 +29,7 @@ public class UpperPanel extends JLayeredPane implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         Controller.tick();
         Controller.getObj().setPosition(Controller.getObj().getPosition()
-                + 0.5 * Controller.getTime() * Controller.getTime() * Controller.getObj().getAcc());
+                + Controller.getObj().getCurVelocity(Controller.getTime()) / 1000 * 60);
         topPane.repaint();
         repaint();
         objectPane.repaint();

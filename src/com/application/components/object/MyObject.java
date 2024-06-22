@@ -24,7 +24,7 @@ public abstract class MyObject extends JPanel {
     protected double actor2;
 
     public int calWidth(int w, int h, int height) {
-        return w / h * height;
+        return (int) (((float) w / (float) h) * height);
     }
 
     public double getActor1() {
@@ -82,10 +82,25 @@ public abstract class MyObject extends JPanel {
         return Physic.getFrictionForce();
     }
 
+    private void drawActor(Graphics g) {
+        try {
+            Image actorImg = ImageIO.read(getClass().getResource("../../assets/cr7.png"));
+            int actorImgWidth = calWidth(actorImg.getWidth(null), actorImg.getHeight(null), height);
+            actorImg = actorImg.getScaledInstance(actorImgWidth, 150, Image.SCALE_DEFAULT);
+            g.drawImage(actorImg,
+                    getWidth() / 2 - calWidth(img.getWidth(null), img.getHeight(null), height) / 2 - actorImgWidth,
+                    0,
+                    null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         drawShape(g, img);
+        drawActor(g);
         if (getActor1() != 0) {
             Force f = new Force("Actor 1", Math.abs(getActor1()), getActor1() > 0 ? 1 : -1);
             g.setColor(Color.WHITE);
@@ -96,9 +111,9 @@ public abstract class MyObject extends JPanel {
             g.setColor(Color.CYAN);
             f.apply(g, 0);
         }
-        if (getActor1() != 0 || getActor2() != 0) {
-            Force f = new Force("Resultant", Math.abs(getActor1() + getActor2()),
-                    getActor1() + getActor2() > 0 ? 1 : -1);
+        if (getActor1() + getActor2() - getFrictionForce() != 0) {
+            Force f = new Force("Resultant", Math.abs(getActor1() + getActor2() - getFrictionForce()),
+                    getActor1() + getActor2() - getFrictionForce() > 0 ? 1 : -1);
             g.setColor(Color.GREEN);
             f.apply(g, -20);
         }

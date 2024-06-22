@@ -19,9 +19,11 @@ public class ChatPanel extends JPanel {
     private static JPanel inputPanel = new JPanel();
     private static JTextArea chatArea = new JTextArea();
     private static ArrayList<Map<String, String>> messages = new ArrayList<>();
+    private static JScrollPane scrollPane = new JScrollPane(chatPanel);
 
     public ChatPanel() {
         var initM = new HashMap<String, String>();
+        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
         initM.put("role", "user");
         initM.put("text", CONTEXT);
         messages.add(initM);
@@ -29,10 +31,6 @@ public class ChatPanel extends JPanel {
         // Create a panel for the chat area
         chatPanel.setLayout(new BoxLayout(chatPanel, BoxLayout.Y_AXIS));
         chatPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-
-        // Create a scroll pane for the chat area
-        JScrollPane scrollPane = new JScrollPane(chatPanel);
-        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
 
         // Create a text area for chat messages (initially empty)
         chatArea.setEditable(false);
@@ -78,8 +76,8 @@ public class ChatPanel extends JPanel {
         inputPanel.add(sendButton);
     }
 
-    public JPanel getChatPanel() {
-        return chatPanel;
+    public JScrollPane getChatPanel() {
+        return scrollPane;
     }
 
     public JPanel getInputPanel() {
@@ -88,36 +86,43 @@ public class ChatPanel extends JPanel {
 
     public static void addMessage(String resp) {
         resp = resp.replace("\\n", "");
-        Pattern msgPattern = Pattern.compile("(?<=Msg\\()(.+?)(?=\\))");
-        Pattern dataPattern = Pattern.compile("(?<=Data\\()(.+?)(?=\\))");
+        Pattern msgPattern = Pattern.compile("(?<=Msg\\()(.+?)(?=\\))", Pattern.DOTALL);
+        Pattern dataPattern = Pattern.compile("(?<=Data\\()(.+?)(?=\\))", Pattern.DOTALL);
+        Pattern textPattern = Pattern.compile("(?<=\"text\":\\s\")(.+?)(?=\")", Pattern.DOTALL);
         Matcher msgMatcher = msgPattern.matcher(resp);
         Matcher dataMatcher = dataPattern.matcher(resp);
+        Matcher textMatcher = textPattern.matcher(resp);
+
         System.out.println(resp);
 
-        if (dataMatcher.find()) {
-            var output = dataMatcher.group(0);
-            var items = output.split(",");
-            for (var item : items) {
-                var pair = item.split(":");
-                try {
-                    UserInput.setVal(pair[0].trim(), Integer.parseInt(pair[1].trim()));
-                } catch (NumberFormatException e) {
+        if (textMatcher.find()) {
+            Map<String, String> m = new HashMap<>();
+            m.put("role", "model");
+            m.put("text", textMatcher.group(0));
+            System.out.println("Debug: " + textMatcher.group(0));
+            messages.add(m);
+            if (dataMatcher.find()) {
+                var output = dataMatcher.group(0);
+                var items = output.split(",");
+                for (var item : items) {
+                    var pair = item.split(":");
                     try {
-                        UserInput.setVal(pair[0].trim(), Double.parseDouble(pair[1].trim()));
-                    } catch (Exception e2) {
-                        System.out.println("Err:" + pair[0].trim() + " " + pair[1].trim());
+                        UserInput.setVal(pair[0].trim(), Integer.parseInt(pair[1].trim()));
+                    } catch (NumberFormatException e) {
+                        try {
+                            UserInput.setVal(pair[0].trim(), Double.parseDouble(pair[1].trim()));
+                        } catch (Exception e2) {
+                            System.out.println("Err:" + pair[0].trim() + " " + pair[1].trim());
+                        }
                     }
                 }
             }
+            if (msgMatcher.find()) {
+                chatArea.append("AI: " + msgMatcher.group(0) + "\n");
+            }
+        } else {
+            chatArea.append("AI: " + textMatcher.group(0) + "\n");
         }
-        if (msgMatcher.find()) {
-            System.out.println(resp);
-            var ans = msgMatcher.group(0);
-            Map<String, String> m = new HashMap<>();
-            m.put("role", "model");
-            m.put("text", ans);
-            messages.add(m);
-            chatArea.append("AI: " + ans + "\n");
-        }
+
     }
 }

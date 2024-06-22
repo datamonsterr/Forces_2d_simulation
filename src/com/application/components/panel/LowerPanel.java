@@ -92,6 +92,7 @@ public class LowerPanel extends JPanel {
         btnPanel.add(shapeButton);
 
         ChatPanel chatBotPane = new ChatPanel();
+        chatBotPane.setLayout(new ScrollPaneLayout());
         leftPane.add(chatBotPane.getChatPanel(), BorderLayout.CENTER);
         leftPane.add(chatBotPane.getInputPanel(), BorderLayout.SOUTH);
         leftPane.add(btnPanel, BorderLayout.NORTH);
