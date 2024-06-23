@@ -41,6 +41,8 @@ public class SurfacePanel extends JPanel {
             int tmp = (int) (Math.round(Controller.getObj().getAcc() * t * t * 0.5));
             if (tmp > MAX_V) {
                 tmp = MAX_V;
+            } else if (tmp < -MAX_V) {
+                tmp = -MAX_V;
             }
             xPositions.set(i, x - tmp);
             if (x + RECT_WIDTH + GAP < FRAME_START * (RECT_WIDTH + GAP)) {
