@@ -11,8 +11,6 @@ public class Physic {
 
     public static double getTotalForce() {
         double totalForce = Controller.getObj().getActor1() + Controller.getObj().getActor2() - getFrictionForce();
-        System.out.println("Total force: " + totalForce);
-        System.out.println("Friction: " + getFrictionForce());
         return totalForce;
     }
 

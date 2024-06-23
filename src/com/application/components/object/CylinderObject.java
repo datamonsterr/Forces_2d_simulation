@@ -2,6 +2,8 @@ package com.application.components.object;
 
 import java.net.URL;
 
+import javax.imageio.ImageIO;
+
 import com.application.components.controller.Controller;
 
 import java.awt.*;
@@ -41,5 +43,29 @@ public class CylinderObject extends MyObject {
         g.drawImage(rotateImage(img, getCurrentAngularPosition(Controller.getTime() * 1000 / 60)),
                 getWidth() / 2 - calWidth(img.getWidth(null), img.getHeight(null), height) / 2, 0, null);
 
+    }
+
+    protected void drawActor(Graphics g) {
+        try {
+            int direction = this.getAcc() < 0 ? -1 : 1;
+            String imgName = direction == 1 ? "cr7.png" : "cr7_flip.png";
+            Image actorImg = ImageIO.read(getClass().getResource("../../assets/" + imgName));
+            int actorImgWidth = calWidth(actorImg.getWidth(null), actorImg.getHeight(null), height);
+            actorImg = actorImg.getScaledInstance(actorImgWidth, 150, Image.SCALE_DEFAULT);
+            if (direction == 1) {
+                g.drawImage(actorImg,
+                        getWidth() / 2 - (calWidth(img.getWidth(null), img.getHeight(null), height) / 2)
+                                - actorImgWidth,
+                        0,
+                        null);
+            } else {
+                g.drawImage(actorImg,
+                        getWidth() / 2 + (calWidth(img.getWidth(null), img.getHeight(null), height) / 2),
+                        0,
+                        null);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

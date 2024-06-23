@@ -82,20 +82,6 @@ public abstract class MyObject extends JPanel {
         return Physic.getFrictionForce();
     }
 
-    private void drawActor(Graphics g) {
-        try {
-            Image actorImg = ImageIO.read(getClass().getResource("../../assets/cr7.png"));
-            int actorImgWidth = calWidth(actorImg.getWidth(null), actorImg.getHeight(null), height);
-            actorImg = actorImg.getScaledInstance(actorImgWidth, 150, Image.SCALE_DEFAULT);
-            g.drawImage(actorImg,
-                    getWidth() / 2 - calWidth(img.getWidth(null), img.getHeight(null), height) / 2 - actorImgWidth,
-                    0,
-                    null);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -125,4 +111,6 @@ public abstract class MyObject extends JPanel {
     }
 
     protected abstract void drawShape(Graphics g, Image img);
+
+    protected abstract void drawActor(Graphics g);
 }

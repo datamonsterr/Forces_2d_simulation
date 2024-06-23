@@ -34,7 +34,6 @@ public class GenAI {
                 reqBody.append("]},");
             }
             reqBody.append("]}");
-            System.out.println("Debug: " + reqBody.toString() + "\n");
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(uri)
                     .header("Content-Type", "application/json")

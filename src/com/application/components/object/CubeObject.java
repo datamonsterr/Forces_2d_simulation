@@ -12,4 +12,7 @@ public class CubeObject extends MyObject {
     protected void drawShape(Graphics g, Image img) {
         g.drawImage(img, getWidth() / 2 - calWidth(img.getWidth(null), img.getHeight(null), height) / 2, 0, null);
     }
+
+    protected void drawActor(Graphics g) {
+    }
 }
