@@ -34,7 +34,7 @@ Follow this link: [Demo Video](https://husteduvn-my.sharepoint.com/personal/cuon
 
 ## Requirement
 
-Please set up Java in VScode Idea following link: [QuickSetUpJavaInVScode](<(https://code.visualstudio.com/docs/java/java-tutorial)>)
+Please set up Java in VScode Idea following link: [QuickSetUpJavaInVScode](https://code.visualstudio.com/docs/java/java-tutorial)
 
 ## 🚀 How to run
 
