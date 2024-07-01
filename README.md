@@ -34,12 +34,12 @@ Follow this link: [Demo Video](https://husteduvn-my.sharepoint.com/personal/cuon
 
 ## Requirement
 
-Please set up Java in VScode Idea following link: [QuickSetUpJavaInVScode]([Getting Started with Java in Visual Studio Code](https://code.visualstudio.com/docs/java/java-tutorial))
+Please set up Java in VScode Idea following link: [QuickSetUpJavaInVScode](<(https://code.visualstudio.com/docs/java/java-tutorial)>)
 
 ## 🚀 How to run
 
 We use [VScode with JDK]([Getting Started with Java in Visual Studio Code](https://code.visualstudio.com/docs/java/java-tutorial)) for our project.
-Our main class is [App.java]([Forces_2d_simulation/src/com/application/App.java at refactor · datamonsterr/Forces_2d_simulation (github.com)](https://github.com/datamonsterr/Forces_2d_simulation/blob/refactor/src/com/application/App.java))
+Our main class is [App.java](<(https://github.com/datamonsterr/Forces_2d_simulation/blob/refactor/src/com/application/App.java)>)
 
 ## Member task
 
@@ -59,5 +59,5 @@ Our main class is [App.java]([Forces_2d_simulation/src/com/application/App.java 
     ├── Slide/report          # Slides for Presentation and Report
     ├── src
     │   ├── com
-    		    ├── application     # Official Java Project Code
+    		├── application     # Official Java Project Code
     └── ...
