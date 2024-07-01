@@ -20,7 +20,9 @@ Cube mode
 
 ---
 
-![AI Mode](https://raw.githubusercontent.com/Cuong102904/Forces_2d_simulation/feature/add_report/slide/AI_mode.png)
+AI mode
+
+[Demo Video](https://husteduvn-my.sharepoint.com/personal/cuong_hm226018_sis_hust_edu_vn/_layouts/15/stream.aspx?id=%2Fpersonal%2Fcuong%5Fhm226018%5Fsis%5Fhust%5Fedu%5Fvn%2FDocuments%2FC%C6%B0%E1%BB%9Dng%2Dsv%2Funiversity%5FHUST%2FOOP%2FDEMO%2Emp4&nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&ga=1&referrer=StreamWebApp%2EWeb&referrerScenario=AddressBarCopied%2Eview%2E957e25e5%2D8acb%2D4f4d%2D9b3e%2D12b7f06bda61)
 
 ---
 
