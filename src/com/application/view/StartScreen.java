@@ -12,7 +12,7 @@ public class StartScreen {
     public StartScreen() {
         frame = new JFrame("Start Screen");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 300);
+        frame.setSize(1200, 900);
         frame.setLocationRelativeTo(null); // Center the frame on the screen
 
         // Create a button and center it in the frame
